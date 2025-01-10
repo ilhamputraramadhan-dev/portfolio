@@ -52,3 +52,31 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 } else {
     darkToggle.checked = false; 
 }
+
+// Gmail form kontak menggunakan emailjs<script>
+  (function() {
+    emailjs.init("bx3l1kWTCWSpkVsEw"); // Ganti dengan Public Key Anda
+  })();
+
+//   Kirim data form kontak
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Mencegah reload halaman
+    
+    // Ambil data form
+    const formData = new FormData(this);
+
+    // Kirim data ke EmailJS
+    emailjs.send("service_uqjrb0f", "template_v3mrxbs", {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    })
+    .then(function(response) {
+      alert('Pesan berhasil dikirim! Terima kasih.');
+    }, function(error) {
+      alert('Terjadi kesalahan, coba lagi. ' + error.text);
+    });
+  });
+
+
+
