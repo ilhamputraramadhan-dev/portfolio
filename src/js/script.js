@@ -65,6 +65,13 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
     // Ambil data form
     const formData = new FormData(this);
 
+    // Validasi Google reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      alert('Harap selesaikan reCAPTCHA!');
+      return; // Hentikan jika reCAPTCHA belum selesai
+    }
+
     // Kirim data ke EmailJS
     emailjs.send("service_uqjrb0f", "template_v3mrxbs", {
       name: formData.get('name'),
@@ -73,10 +80,15 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
     })
     .then(function(response) {
       alert('Pesan berhasil dikirim! Terima kasih.');
+        // Reset form dan reCAPTCHA
+        document.getElementById('contactForm').reset();
+        grecaptcha.reset();
     }, function(error) {
       alert('Terjadi kesalahan, coba lagi. ' + error.text);
     });
   });
+
+  
 
 
 
