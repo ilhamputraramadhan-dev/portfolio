@@ -79,11 +79,13 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
       message: formData.get('message')
     })
     .then(function(response) {
+    console.log(response);
       alert('Pesan berhasil dikirim! Terima kasih.');
         // Reset form dan reCAPTCHA
         document.getElementById('contactForm').reset();
         grecaptcha.reset();
     }, function(error) {
+        console.log(error);
       alert('Terjadi kesalahan, coba lagi. ' + error.text);
     });
   });
